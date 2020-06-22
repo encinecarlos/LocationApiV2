@@ -30,7 +30,14 @@ namespace LocationApiV2.Controllers
         [HttpGet("getByName")]
         public async Task<ActionResult<Cities>> GetByName(string name)
         {
-            return Ok(_context.Cities.Where(m => m.Name == name));
+            var city = _context.Cities.Where(m => m.Name == name);
+            if (city.Any())
+            {
+                return Ok(city);
+            }
+
+            return NotFound("City not found!");
+
         }
 
         // GET: api/Cities/5
